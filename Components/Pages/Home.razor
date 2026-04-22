@@ -1,0 +1,123 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>🌍 EcoMonitor</PageTitle>
+
+<h1 style="text-align:center; margin-top:30px;">
+    🌍 EcoMonitor
+</h1>
+
+<div style="text-align:center; margin-bottom:30px;">
+    Transformando pequenas ações em impacto ambiental.
+</div>
+
+<div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+
+    <div class="card">
+        <h3>Reciclagem de Plástico</h3>
+        <span class="badge">@plastico</span>
+        <button @onclick="IncrementarPlastico">Registrar</button>
+    </div>
+
+    <div class="card">
+        <h3>Descarte de Eletrônicos</h3>
+        <span class="badge">@eletronico</span>
+        <button @onclick="IncrementarEletronico">Registrar</button>
+    </div>
+
+    <div class="card">
+        <h3>Plantio de Árvores</h3>
+        <span class="badge">@arvore</span>
+        <button @onclick="IncrementarArvore">Registrar</button>
+    </div>
+
+</div>
+
+<!-- TOTAL -->
+<h2 style="text-align:center; margin-top:20px; color:@CorTexto; font-size:@Tamanho">
+    Total de Pontos: @Total
+</h2>
+
+<!-- BARRA -->
+<div class="progress-container">
+    <div class="progress-bar" style="width:@Progresso%"></div>
+</div>
+
+@if (Total >= 100)
+{
+    <div class="mensagem">
+        🌟 Você é um Herói do Planeta!
+    </div>
+}
+
+<style>
+    .card {
+        width: 250px;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+
+    .badge {
+        display: block;
+        background: #0d6efd;
+        color: white;
+        padding: 5px;
+        margin: 10px 0;
+        border-radius: 8px;
+    }
+
+    button {
+        background: #198754;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .progress-container {
+        width: 80%;
+        height: 20px;
+        background: #ddd;
+        margin: 20px auto;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: #198754;
+        transition: 0.3s;
+    }
+
+    .mensagem {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        color: #ffc107;
+        margin-top: 20px;
+    }
+</style>
+
+@code {
+    private int plastico = 0;
+    private int eletronico = 0;
+    private int arvore = 0;
+
+    int Total => plastico + eletronico + arvore;
+
+    string CorTexto =>
+        Total >= 100 ? "#ffc107" :
+        Total >= 50 ? "#198754" :
+        "#000000";
+
+    string Tamanho => Total >= 100 ? "32px" : "24px";
+
+    int Progresso => Total > 100 ? 100 : Total;
+
+    void IncrementarPlastico() => plastico += 1;
+    void IncrementarEletronico() => eletronico += 5;
+    void IncrementarArvore() => arvore += 10;
+}

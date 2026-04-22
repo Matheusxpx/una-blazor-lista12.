@@ -1,0 +1,22 @@
+<div class="card">
+    <h3>@Titulo</h3>
+
+    <p>Pontos por ação: <strong>@Pontos</strong></p>
+
+    <p>Total acumulado:</p>
+    <span class="badge">@Valor</span>
+
+    <button @onclick="AoClicar">Registrar Atividade</button>
+
+    @if (Valor >= 100)
+    {
+        <p class="meta">🌱 Meta batida!<br />Você é um Herói do Planeta!</p>
+    }
+</div>
+
+@code {
+    [Parameter] public string Titulo { get; set; } = "";
+    [Parameter] public int Pontos { get; set; }
+    [Parameter] public int Valor { get; set; }
+    [Parameter] public EventCallback AoClicar { get; set; }
+}
